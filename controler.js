@@ -1,5 +1,6 @@
 const token = require("jsonwebtoken");
 const User = require("./model");
+const bcrypt= require ("bcrypt")
 
 const users = [
   {
@@ -41,12 +42,13 @@ const createUser = async (req, res) => {
   const user = req.body;
   console.log("data =", user);
   user.id = users.length + 1;
-  user.password = await bycrypt.hash(user.password, 10);
+  const password = await bcrypt.hash(user.password, 10);
   users.push(user);
   const utilisateur = new User({
     ...req.body,
+    password
   });
-  await utilisateur.save;
+  await utilisateur.save();
 
   res.status(200).send({
     message: "User created successfully",
@@ -54,10 +56,11 @@ const createUser = async (req, res) => {
   });
 };
 
-const getUser = (req, res) => {
+const getUser = async (req, res) => {
+  const users = await User.find({})  
   res.status(200).send({
     message: "Fetched successfully",
-    data: users,
+    data: users
   });
 };
 

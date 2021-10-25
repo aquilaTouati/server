@@ -1,10 +1,10 @@
 const Joi = require("joi");
 const validateUser = (req, res, next) => {
   const schema = Joi.object({
-    name: Joi.string().max().required(),
-    username: Joi.string().max(10).required(),
+    name: Joi.string().required(),
+    username: Joi.string().required(),
     email: Joi.string().email().required(),
-    password: Joi.string().min(10).required(),
+    password: Joi.string().required(),
   });
   const result = schema.validate(req.body);
   if (result.error) {
