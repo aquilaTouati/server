@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const router = require("./router");
+const router2 = require("./router2");
 const multer = require("multer");
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -9,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/users", router);
+app.use("/products", router2);
 mongoose.connect(
   "mongodb://akilaT:strodix1997@cluster0-shard-00-00.rj5tw.mongodb.net:27017,cluster0-shard-00-01.rj5tw.mongodb.net:27017,cluster0-shard-00-02.rj5tw.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-3qusrp-shard-0&authSource=admin&retryWrites=true&w=majority",
   {
@@ -16,6 +18,7 @@ mongoose.connect(
     useNewUrlParser: true,
   }
 );
+
 
 /*File Uploader*/
 const storage = multer.diskStorage({
@@ -48,4 +51,7 @@ app.all("*", (req, res) => {
 });
 app.listen(5000, () => {
   console.log("Listen on http://localhost:5000");
+});
+app.listen(4000, () => {
+  console.log("Listen on http://localhost:4000");
 });
