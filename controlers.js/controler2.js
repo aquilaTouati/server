@@ -1,5 +1,5 @@
 const token = require("jsonwebtoken");
-const Product = require("./model");
+const Product = require("../models.js/model2");
 const bcrypt= require ("bcrypt")
 
 const products = [

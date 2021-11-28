@@ -1,8 +1,8 @@
 const express = require("express");
 const router2 = express.Router()
-const controler2 = require ('./controler2');
-const validator2 = require ('./validator2');
-const auth2 = require ('./middleware2');
+const controler2 = require ('../controlers.js/controler2');
+const validator2 = require ('../validators.js/validator2');
+const auth2 = require ('../middlewares.js/middleware2');
 
 
 router2

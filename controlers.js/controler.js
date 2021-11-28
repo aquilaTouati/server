@@ -1,5 +1,5 @@
 const token = require("jsonwebtoken");
-const User = require("./model");
+const User = require("../models.js/model");
 const bcrypt= require ("bcrypt")
 
 const users = [

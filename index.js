@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const router = require("./router");
-const router2 = require("./router2");
+const router = require("./routers.js/router");
+const router2 = require("./routers.js/router2");
 const multer = require("multer");
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -51,7 +51,4 @@ app.all("*", (req, res) => {
 });
 app.listen(5000, () => {
   console.log("Listen on http://localhost:5000");
-});
-app.listen(4000, () => {
-  console.log("Listen on http://localhost:4000");
 });
