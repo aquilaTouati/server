@@ -9,6 +9,8 @@ const users = [
     username: "Bret",
     email: "Sincere@april.biz",
     password: "123",
+    wilaya: "wilaya",
+    option:"option",
   },
   
 ];

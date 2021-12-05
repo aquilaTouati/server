@@ -14,6 +14,12 @@ const userSchema = new Schema({
   password: {
     type: String,
   },
+  wilaya:{
+    type: String,
+  },
+  option:{
+    type: String,
+  },
 });
 
 const User= mongoose.model("User", userSchema);

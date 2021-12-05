@@ -5,6 +5,8 @@ const validateUser = (req, res, next) => {
     username: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
+    wilaya: Joi.string().required(),
+    option: Joi.string().required(),
   });
   const result = schema.validate(req.body);
   if (result.error) {
