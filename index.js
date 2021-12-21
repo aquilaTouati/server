@@ -1,54 +1,25 @@
-const express = require("express");
+
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import cors from 'cors';
+
+import postRoutes from './routers.js/router2.js';
+import userRoutes from './routers.js/router3.js';
+
 const app = express();
-const router = require("./routers.js/router");
-const router2 = require("./routers.js/router2");
-const multer = require("multer");
-require("dotenv").config();
-const mongoose = require("mongoose");
-const cors = require("cors");
+
+app.use(bodyParser.json({ limit: '30mb', extended: true }))
+app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
-app.use(express.json());
+app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
 
-app.use("/users", router);
-app.use("/products", router2);
-mongoose.connect(
-  "mongodb://akilaT:strodix1997@cluster0-shard-00-00.rj5tw.mongodb.net:27017,cluster0-shard-00-01.rj5tw.mongodb.net:27017,cluster0-shard-00-02.rj5tw.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-3qusrp-shard-0&authSource=admin&retryWrites=true&w=majority",
-  {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  }
-);
+const CONNECTION_URL = 'mongodb+srv://akilol:strawberry1997@cluster0.csnp4.mongodb.net/test';
+const PORT = process.env.PORT|| 5000;
 
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
+  .catch((error) => console.log(`${error} did not connect`));
 
-/*File Uploader*/
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-const upload = multer({ storage }).array("file");
-app.post("/upload", (req, res) => {
-  upload(req, res, (err) => {
-    if (err) {
-      return res.status(500).json(err);
-    }
-
-    return res.status(200).send(req.files);
-  });
-});
-
-const db = mongoose.connection;
-db.once("open", () => {
-  console.log("Base de données connectée!");
-});
-app.all("*", (req, res) => {
-  res.status(404).send({
-    message: "Route not found",
-  });
-});
-app.listen(5000, () => {
-  console.log("Listen on http://localhost:5000");
-});
+// mongoose.set('useFindAndModify', false);

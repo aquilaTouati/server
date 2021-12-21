@@ -1,15 +1,14 @@
-const express = require("express");
-const router2 = express.Router()
-const controler2 = require ('../controlers.js/controler2');
-const validator2 = require ('../validators.js/validator2');
-const auth2 = require ('../middlewares.js/middleware2');
 
+import { getPosts, getPost, createPost, updatePost, likePost, deletePost } from '../controlers.js/posts.js';
+import express from 'express';
+// import auth from "../middlewares.js/auth.js"
 
-router2
-  .get("/", /*auth.verifyToken,*/ controler2.getProduct)
-  .get("/:id", controler2.getProductById)
-  .post("/", validator2.validateProduct, controler2.createProducts)
-  .put("/:id", validator2.validateProduct, controler2.updateProduct)
-  .delete("/:id", controler2.deleteProduct);
+const router2 = express.Router();
+router2.get('/',getPosts);
+router2.post('/', /*auth,*/ createPost);
+// router2.get('/:id', getPost);
+router2.patch('/:id', /*auth,*/ updatePost);
+router2.delete('/:id',/*auth,*/ deletePost);
+router2.patch('/:id/likePost',/*auth,*/ likePost);
 
-module.exports = router2;
+export default router2;
